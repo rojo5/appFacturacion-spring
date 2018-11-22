@@ -30,7 +30,14 @@
 	<div class="container">
 		<h1 th:text="${titulo}" class="text-secondary border-bottom"></h1>
 
-		<form th:action="@{/form}" th:objetct="${cliente}" method="post">
+
+		<div th:object="${cliente}" th:remove="tag">
+			<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">
+				<li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+			</ul>
+		</div>
+
+		<form th:action="@{/form}" th:object="${cliente}" method="post">
 
 
 
@@ -38,7 +45,8 @@
 				<label class="col-sm-2 col-form-label">Nombre</label>
 				<div class="col-sm-6">
 					<input type="text" th:field="${cliente.nombre}"
-						class="form-control" />
+						class="form-control" th:errorclass="'form-control alert-danger'"/>
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
 				</div>
 				<!-- Enlaza el campo del formulario con el nombre del objeto cliente -->
 			</div>
@@ -47,7 +55,8 @@
 				<label class="col-sm-2 col-form-label">Apellido</label>
 				<div class="col-sm-6">
 					<input type="text" th:field="${cliente.apellido}"
-						class="form-control" />
+						class="form-control" th:errorclass="'form-control alert-danger'" />
+						<small class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small>
 				</div>
 			</div>
 
@@ -55,7 +64,17 @@
 				<label class="col-sm-2 col-form-label">Email</label>
 				<div class="col-sm-6">
 					<input type="email" th:field="${cliente.email}"
-						class="form-control" />
+						class="form-control" th:errorclass="'form-control alert-danger'"/>
+						<small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Fecha</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="${cliente.createAt}"
+						class="form-control" th:errorclass="'form-control alert-danger'"/>
+						<small class="form-text text-danger" th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"></small>
 				</div>
 			</div>
 
@@ -65,8 +84,6 @@
 				</div>
 			</div>
 
-
-			<input type="hidden" th:field="${cliente.id}" />
 		</form>
 	</div>
 </body>

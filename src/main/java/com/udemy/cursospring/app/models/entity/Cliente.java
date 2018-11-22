@@ -12,6 +12,11 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="Clientes")
@@ -26,18 +31,23 @@ public class Cliente  implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Indica que va a ser autoincremental
 	private Long id;
 	
+	@NotEmpty
 	private String nombre;
+	
+	@NotEmpty
 	private String apellido;
+	
+	@NotEmpty
+	@Email
 	private String email;
 	
+	@NotNull
 	@Column(name="create_at") //Indica el nombre de la columna en la tabla, si no se pone nada la columna se llamará igual que la variable
 	@Temporal(TemporalType.DATE) //con Date solo obtenemos la fecha sin hora 
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date createAt;
 	
-	@PrePersist //Llama a este metodo antes de llamar al metodo de persist que inserta el registro en la BBDD
-	public void prePersist() {
-		createAt = new Date();
-	}
+
 
 	public Long getId() {
 		return id;
