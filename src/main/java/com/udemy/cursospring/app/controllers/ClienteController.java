@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.udemy.cursospring.app.models.dao.IClienteDao;
 import com.udemy.cursospring.app.models.entity.Cliente;
+import com.udemy.cursospring.app.models.service.IClienteService;
 
 @Controller
 @SessionAttributes("cliente") // Guarda los datos del objeto cliente en la sesion
 public class ClienteController {
 
 	@Autowired //Activa el bean en el contexto
-	private IClienteDao clienteDao;
+	private IClienteService clienteService;
 	
 	@RequestMapping(value="/listar", method= RequestMethod.GET)
 	public String listar(Model model) {
 		model.addAttribute("titulo", "Listado de clientes");
-		model.addAttribute("clientes", clienteDao.findAll()); // Devuelve un listado de los clientes
+		model.addAttribute("clientes", clienteService.findAll()); // Devuelve un listado de los clientes
 		return "listar";
 	}
 	
@@ -45,7 +45,7 @@ public class ClienteController {
 		Cliente cliente = null;
 		
 		if(id>0) {
-			cliente = clienteDao.findOne(id);
+			cliente = clienteService.findOne(id);
 		} else {
 			return "redirect:/listar";
 		}
@@ -63,7 +63,7 @@ public class ClienteController {
 			model.addAttribute("titulo", "Formulario del cliente");
 			return "form";
 		}
-		clienteDao.save(cliente);
+		clienteService.save(cliente);
 		status.setComplete(); //Borra los datos de la sesion
 		return "redirect:listar"; //Redirge la web hacia la pagina de listar
 	}
@@ -71,7 +71,7 @@ public class ClienteController {
 	@RequestMapping(value="/eliminar/{id})")
 	public String eliminar(@PathVariable(value="id") Long id) {
 		if(id >0) {
-			clienteDao.delete(id);
+			clienteService.delete(id);
 		}
 		
 		return "redirect:/listar";
