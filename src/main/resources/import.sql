@@ -29,3 +29,21 @@ INSERT INTO clientes (id, nombre, apellido, email, create_at, foto) VALUES(27, '
 INSERT INTO clientes (id, nombre, apellido, email, create_at, foto) VALUES(28, 'Pepe', 'Lorenzo', 'pepe@pepe.com', '2018-09-28', '');
 INSERT INTO clientes (id, nombre, apellido, email, create_at, foto) VALUES(29, 'Raluca', 'Muresan', 'raluca@raluca.com', '2018-09-29', '');
 INSERT INTO clientes (id, nombre, apellido, email, create_at, foto) VALUES(30, 'Raquel', 'Benito', 'raquel@raquel.com', '2018-09-30', '');
+
+INSERT INTO productos (nombre, precio, create_at) VALUES ("Panasonic pantalla LCD", 5000 , NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES ("Sony camara digital  DSC-W320B", 500 , NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES ("Apple iPod Shuffle", 1000 , NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES ("Sony notebook Z110",  951, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES ("Hewlett Packard multifuncional F2280", 657 , NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES ("Bianchi  bicicleta Aro 26", 3158 , NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES ("Mica comoda 5 cajones", 100 , NOW());
+
+
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES ('Facturas equipos de oficina', null, 1, NOW());
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES (1,1,1);
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES (2,1,4);
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES (1,1,5);
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES (1,1,7);
+
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES ('Factura bicicleta', 'Hello there!!', 1, NOW());
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES (3, 2, 6);
