@@ -25,6 +25,14 @@ public class ItemFactura  implements Serializable{
 	@JoinColumn(name="producto_id")
 	private Producto producto;
 
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+
 	public Long getId() {
 		return id;
 	}
