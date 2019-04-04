@@ -41,7 +41,7 @@ public class SpringSecurityConfig  extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/images/**", "/listar", "/locale").permitAll()
+		http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/images/**", "/listar**", "/locale", "/api/clientes/**").permitAll()
 		//Lo comento para que en vez de hacerlo de esta forma utilizo las anotaciones @Secured
 		/*.antMatchers("/ver/**").hasAnyRole("USER")
 		.antMatchers("/uploads/**").hasAnyRole("USER")

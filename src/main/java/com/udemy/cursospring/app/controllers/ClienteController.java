@@ -3,6 +3,7 @@ package com.udemy.cursospring.app.controllers;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -36,6 +37,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,6 +47,7 @@ import com.udemy.cursospring.app.models.entity.Cliente;
 import com.udemy.cursospring.app.models.service.IClienteService;
 import com.udemy.cursospring.app.models.service.IUploadFileService;
 import com.udemy.cursospring.app.util.paginator.PageRender;
+import com.udemy.cursospring.app.view.xml.ClienteList;
 
 @Controller
 @SessionAttributes("cliente") // Guarda los datos del objeto cliente en la sesion
@@ -99,6 +102,12 @@ public class ClienteController {
 		return "ver";
 	}
 	
+	//Metodo "duplicado" para el API REST devuelve rest y xml
+	@GetMapping(value = "/listar-rest")
+	@ResponseBody //Indica que el resultado se guardara en el cuerpo de la respuesta
+	public ClienteList listarRest() {		
+		return  new ClienteList(clienteService.findAll());
+	}
 	//Tiene puesto para poner mas de 2 rutas
 	@RequestMapping(value = {"/listar", "/"}, method = RequestMethod.GET)
 	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model, Authentication authentication, HttpServletRequest request, Locale locale) {
