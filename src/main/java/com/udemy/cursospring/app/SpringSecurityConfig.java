@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.udemy.cursospring.app.auth.filter.JWTAuthenticationFilter;
 import com.udemy.cursospring.app.auth.handler.LoginSuccessHandler;
 import com.udemy.cursospring.app.models.service.JpaUserDetailsService;
 
@@ -41,7 +42,7 @@ public class SpringSecurityConfig  extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/images/**", "/listar**", "/locale", "/api/clientes/**").permitAll()
+		http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/images/**", "/listar**", "/locale").permitAll()
 		//Lo comento para que en vez de hacerlo de esta forma utilizo las anotaciones @Secured
 		/*.antMatchers("/ver/**").hasAnyRole("USER")
 		.antMatchers("/uploads/**").hasAnyRole("USER")
@@ -49,7 +50,8 @@ public class SpringSecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/eliminar/**").hasAnyRole("ADMIN")
 		.antMatchers("/factura/**").hasAnyRole("ADMIN")*/
 		.anyRequest().authenticated()
-		.and()
+		//Autenticacion por sesiones
+		/*.and()
 		    .formLogin()
 		        .successHandler(successHandler)
 		        .loginPage("/login")
@@ -57,8 +59,9 @@ public class SpringSecurityConfig  extends WebSecurityConfigurerAdapter{
 		.and()
 		.logout().permitAll()
 		.and()
-		.exceptionHandling().accessDeniedPage("/error_403")
+		.exceptionHandling().accessDeniedPage("/error_403")*/
 		.and()
+		.addFilter(new JWTAuthenticationFilter(authenticationManager()))
 		.csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
