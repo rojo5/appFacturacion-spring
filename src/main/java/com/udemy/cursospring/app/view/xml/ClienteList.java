@@ -2,7 +2,8 @@ package com.udemy.cursospring.app.view.xml;
 
 /*
  * ESTA CLASE ES UN WRAPER
- *  LOS
+ *  LOS WRAPER SON ENVOLTORIOS PARA LOS TIPOS PRIMITIVOS COMO INT, STRING BOUBLE... 
+ *  Y NOS PERMITE TRATARLOS COMO OBJETOS
  */
 
 import java.util.List;

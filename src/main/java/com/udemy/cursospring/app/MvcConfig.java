@@ -75,7 +75,7 @@ public class MvcConfig  implements WebMvcConfigurer{
 	public Jaxb2Marshaller jaxb2Marshaller() {
 		
 		Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-		marshaller.setClassesToBeBound(new Class[] {});
+		marshaller.setClassesToBeBound(new Class[] {com.udemy.cursospring.app.view.xml.ClienteList.class});
 		
 		return marshaller;
 	}

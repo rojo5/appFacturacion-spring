@@ -21,8 +21,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import javax.validation.constraints.NotEmpty;
+import javax.xml.bind.annotation.XmlTransient;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @Entity
@@ -46,6 +49,7 @@ public class Factura implements Serializable{
 	
 	//Sirve para las relaciones entre las tablas en este caso varias facturas un cliente
 	@ManyToOne(fetch=FetchType.LAZY) //el fech se encarga de como se extren los datos lazy es la recomendada 
+	@Setter
 	private Cliente cliente;
 	
 	@OneToMany(fetch= FetchType.LAZY, cascade=CascadeType.ALL)
@@ -60,7 +64,11 @@ public class Factura implements Serializable{
 		createAt = new Date();
 	}
 
-
+	@XmlTransient //Omite este atributo en la serializacion, no lo mete en el XML
+	public Cliente getCliente() {
+		return cliente;
+		
+	}
 	
 	public void addItemFactura(ItemFactura item) {
 		this.items.add(item);
