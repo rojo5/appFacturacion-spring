@@ -22,6 +22,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="Clientes")
 public class Cliente  implements Serializable{
@@ -49,6 +52,7 @@ public class Cliente  implements Serializable{
 	@Column(name="create_at") //Indica el nombre de la columna en la tabla, si no se pone nada la columna se llamará igual que la variable
 	@Temporal(TemporalType.DATE) //con Date solo obtenemos la fecha sin hora 
 	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date createAt;
 	
 	/*Sirve para las relaciones entre las tablas en este caso varias facturas un cliente
@@ -58,6 +62,8 @@ public class Cliente  implements Serializable{
 	 *  cascade  indica que los cambios se realizan en cadena
 	 */
 	@OneToMany(mappedBy="cliente",fetch=FetchType.LAZY, cascade=CascadeType.ALL) 
+	//@JsonIgnore//Omite este atributo en la serializacion, no lo mete en el JSON
+	@JsonManagedReference //Permite controlar la refencia de manera unidireccional
 	private List<Factura> facturas;
 	
 	private String foto;

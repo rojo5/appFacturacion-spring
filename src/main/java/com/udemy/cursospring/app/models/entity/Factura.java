@@ -23,6 +23,9 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -50,6 +53,7 @@ public class Factura implements Serializable{
 	//Sirve para las relaciones entre las tablas en este caso varias facturas un cliente
 	@ManyToOne(fetch=FetchType.LAZY) //el fech se encarga de como se extren los datos lazy es la recomendada 
 	@Setter
+	@JsonBackReference // no serializa sus dependencias en la serializacion de JSON su contra parte es @JsonManagedReference
 	private Cliente cliente;
 	
 	@OneToMany(fetch= FetchType.LAZY, cascade=CascadeType.ALL)
