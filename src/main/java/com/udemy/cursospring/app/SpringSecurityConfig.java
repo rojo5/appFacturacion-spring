@@ -10,6 +10,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.udemy.cursospring.app.auth.filter.JWTAuthenticationFilter;
+import com.udemy.cursospring.app.auth.filter.JWTAuthorizationFilter;
 import com.udemy.cursospring.app.auth.handler.LoginSuccessHandler;
 import com.udemy.cursospring.app.models.service.JpaUserDetailsService;
 
@@ -62,6 +63,7 @@ public class SpringSecurityConfig  extends WebSecurityConfigurerAdapter{
 		.exceptionHandling().accessDeniedPage("/error_403")*/
 		.and()
 		.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+		.addFilter(new JWTAuthorizationFilter(authenticationManager()))
 		.csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
