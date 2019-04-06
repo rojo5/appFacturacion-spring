@@ -24,10 +24,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.Setter;
 
 @Data
